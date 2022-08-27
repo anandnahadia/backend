@@ -1,9 +1,13 @@
-version: '2'
+version: "3.8"
 services:
-  mongo:
-    container_name: mongo
-    image: marketplace.gcr.io/google/mongodb4
-    ports:
-      - '27017:27017'
-    volumes:
-      - /my/persistent/dir/mongo:/data/db
+mongodb:
+image : mongo
+container_name: mongodb
+environment:
+- PUID=1000
+- PGID=1000
+volumes:
+- /home/barry/mongodb/database:/data/db
+ports:
+- 27017:27017
+restart: unless-stopped
