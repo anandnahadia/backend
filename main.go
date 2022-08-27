@@ -65,13 +65,13 @@ func main() {
 	r.HandleFunc("/", helloBackend).Methods("GET")
 	r.HandleFunc("/getData", getData).Methods("GET")
 	r.HandleFunc("/saveData", addData).Methods("POST")
-	log.Println("Listening on 8081........")
-	http.ListenAndServe(":8081", r)
+	log.Println("Listening on 8080........")
+	http.ListenAndServe(":8080", r)
 
 }
 func helloBackend(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Listening on 8081!"))
+	w.Write([]byte("Listening on 8080!"))
 }
 func addData(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
