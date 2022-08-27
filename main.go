@@ -43,7 +43,7 @@ func ping(client *mongo.Client, ctx context.Context) error {
 func initMongoDb() (*mongo.Client, context.Context, context.CancelFunc) {
 	//start mongodb connection
 	clientOptions := options.Client().
-		ApplyURI("mongodb://localhost:27017")
+		ApplyURI("mongodb://localhost:8082")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 
 	client, err := mongo.Connect(ctx, clientOptions)
