@@ -61,12 +61,16 @@ func main() {
 	client, ctx, cancel := initMongoDb()
 	defer close(client, ctx, cancel)
 	r := mux.NewRouter()
-	r.HandleFunc("/", addData).Methods("POST")
+	r.HandleFunc("/", helloBackend).Methods("GET")
+	r.HandleFunc("/saveData", addData).Methods("POST")
 	log.Println("Listening on 8080........")
 	http.ListenAndServe(":8080", r)
 
 }
-
+func helloBackend(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Listening on 8080!"))
+}
 func addData(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var t input
