@@ -63,13 +63,13 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", helloBackend).Methods("GET")
 	r.HandleFunc("/saveData", addData).Methods("POST")
-	log.Println("Listening on 8081........")
-	http.ListenAndServe(":8081", r)
+	log.Println("Listening on Port 80!........")
+	http.ListenAndServe(":80", r)
 
 }
 func helloBackend(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Listening on 8081!"))
+	w.Write([]byte("Listening on 80!"))
 }
 func addData(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
