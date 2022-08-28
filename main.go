@@ -41,8 +41,12 @@ func ping(client *mongo.Client, ctx context.Context) error {
 // initMongoDb starts mongodb connection
 func initMongoDb() (*mongo.Client, context.Context, context.CancelFunc) {
 	//start mongodb connection
+	creds := options.Credential{
+		Username: "admin",
+		Password: "admin@1234",
+	}
 	clientOptions := options.Client().
-		ApplyURI("mongodb://localhost:8082")
+		ApplyURI("mongodb://localhost:8083").SetAuth(creds)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 
 	client, err := mongo.Connect(ctx, clientOptions)
