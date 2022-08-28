@@ -69,7 +69,7 @@ func main() {
 }
 func helloBackend(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Listening on 8081!"))
+	w.Write([]byte("Backend is up!"))
 }
 func addData(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
