@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -63,7 +62,6 @@ func main() {
 	defer close(client, ctx, cancel)
 	r := mux.NewRouter()
 	r.HandleFunc("/", helloBackend).Methods("GET")
-	r.HandleFunc("/getData", getData).Methods("GET")
 	r.HandleFunc("/saveData", addData).Methods("POST")
 	log.Println("Listening on 8081........")
 	http.ListenAndServe(":8081", r)
@@ -91,18 +89,4 @@ func addData(w http.ResponseWriter, r *http.Request) {
 	log.Println("Data saved successfully ", result)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("success"))
-}
-func getData(w http.ResponseWriter, r *http.Request) {
-	var result interface{}
-	err := col.FindOne(context.TODO(), bson.D{}).Decode(&result)
-	if err != nil {
-		log.Println("ERROR:", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(err)
-		return
-	}
-	log.Println("get data successfully ", result)
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("success"))
-
 }
